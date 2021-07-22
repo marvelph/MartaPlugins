@@ -44,3 +44,16 @@ action {
         end
     end
 }
+
+action {
+    id = "select.all.file",
+    name = "Select All File",
+    apply = function(context)
+        local model = context.activePane.model
+        for i = 1, model.lastIndex do
+            if not model:getItem(i).info.isFolder then
+                model:select({from = i, to = i + 1})
+            end
+        end
+    end
+}
