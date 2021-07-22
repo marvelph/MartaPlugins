@@ -58,6 +58,6 @@ action {
     id = "go.home",
     name = "Go to Home",
     apply = function(context)
-        context.activePane.model:load(localFileSystem:get(os.getenv("HOME")))
+        context.activePane.model:load(localFileSystem:get(martax.getHomeDirectory()))
     end
 }
