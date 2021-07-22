@@ -57,3 +57,16 @@ action {
         end
     end
 }
+
+action {
+    id = "select.invert.file",
+    name = "Invert Selection File",
+    apply = function(context)
+        local model = context.activePane.model
+        for i = 1, model.lastIndex do
+            if not model:getItem(i).info.isFolder then
+                model:invertSelection({from = i, to = i + 1})
+            end
+        end
+    end
+}
