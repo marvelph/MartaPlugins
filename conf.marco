@@ -1,0 +1,91 @@
+environment {
+    textEditor "CotEditor"
+}
+
+behavior {
+    layout {
+        showActionBar false
+    }
+    
+    relativeDate false
+    
+    dateFormat {
+        normal "%Y-%m-%d"
+    }
+    
+    timeFormat {
+        separator " "
+        normal "%H:%M:%S"
+    }
+    
+    table {
+        defaults {
+            columns "extension,>size:80,modified:135"
+        }
+    }
+    
+    quickSelect {
+        activateOnAnyCharacter false
+    }
+
+}
+
+gadgets [
+    {
+        id "org.programmershigh.gadget.preview"
+        name "Open External Preview"
+        type "application"
+        application "Preview"
+        files [ "${active.selection.paths}" ]
+    }
+]
+
+keyBindings {
+    "Left" "org.programmershigh.navigation.change.current.pane.left"
+    "Right" "org.programmershigh.navigation.change.current.pane.right"
+    
+    "Space" "core.select.move.down"
+    "Shift+Space" "core.select.move.up"
+    "A" "core.selection.invert"
+    "Shift+A" "core.select.all"
+    "Shift+Escape" "core.refresh"
+    "G" "core.select.group"
+    "Shift+G" "core.deselect.group"
+    
+    "Shift+Return" "core.open.with"
+    "L" "core.volumes"
+    "H" "core.recent"
+    "Shift+Left" "core.back"
+    "Shift+Right" "core.forward"
+    "J" "core.favorites"
+    "Shift+J" "core.go"
+    "O" "org.programmershigh.navigation.clone.active"
+    "Shift+O" "org.programmershigh.navigation.clone.inactive"
+    "F" "core.lookup.here"
+    "Shift+F" "core.lookup"
+
+    "C" "core.copy.inactive"
+    "Shift+C" "core.duplicate"
+    "M" "core.move.inactive"
+    "D" "core.delete"
+    "Shift+D" "core.trash"
+    "K" "core.new.folder"
+    "Shift+K" "core.new.file"
+    "R" "core.rename"
+    "P" "core.compress"
+    "S" "core.symlink"
+    "U" "core.extract"
+    "I" "core.disk.usage"
+    "Shift+I" "core.finder.showInfo"
+    
+    "E" "core.edit"
+    "V" "core.preview"
+    "Shift+V" "org.programmershigh.gadget.preview"
+    "W" "org.programmershigh.selection.select.same"
+    "Shift+W" "org.programmershigh.selection.select.different"
+    "T" "core.ext.terminal.open"
+    
+    "X" "core.context.menu"
+    "Q" "core.queue"
+    "." "core.display.hidden"
+}
