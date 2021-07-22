@@ -53,3 +53,11 @@ action {
         context.activePane.model:load(localFileSystem:get("/"))
     end
 }
+
+action {
+    id = "go.home",
+    name = "Go to Home",
+    apply = function(context)
+        context.activePane.model:load(localFileSystem:get(os.getenv("HOME")))
+    end
+}
