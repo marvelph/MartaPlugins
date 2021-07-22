@@ -45,3 +45,11 @@ action {
         end
     end
 }
+
+action {
+    id = "go.root",
+    name = "Go to Root",
+    apply = function(context)
+        context.activePane.model:load(localFileSystem:get("/"))
+    end
+}
