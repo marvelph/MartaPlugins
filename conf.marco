@@ -46,8 +46,8 @@ keyBindings {
     
     "Space" "core.select.move.down"
     "Shift+Space" "core.select.move.up"
-    "A" "core.selection.invert"
-    "Shift+A" "core.select.all"
+    "A" "org.programmershigh.selection.select.invert.file"
+    "Shift+A" "org.programmershigh.selection.select.all.file"
     "Shift+Escape" "core.refresh"
     "G" "core.select.group"
     "Shift+G" "core.deselect.group"
