@@ -25,7 +25,8 @@ action {
     apply = function(context)
         local model = context.activePane.model
         for i = 1, model.lastIndex do
-            if find(context.inactivePane.model, model:getItem(i)) then
+            local item = model:getItem(i)
+            if not item.info.isFolder and find(context.inactivePane.model, item) then
                 model:select({from = i, to = i + 1})
             end
         end
@@ -38,7 +39,8 @@ action {
     apply = function(context)
         local model = context.activePane.model
         for i = 1, model.lastIndex do
-            if not find(context.inactivePane.model, model:getItem(i)) then
+            local item = model:getItem(i)
+            if not item.info.isFolder and not find(context.inactivePane.model, item) then
                 model:select({from = i, to = i + 1})
             end
         end
