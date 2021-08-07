@@ -43,7 +43,7 @@ gadgets [
 keyBindings {
     "Left" "org.programmershigh.navigation.change.current.pane.left"
     "Right" "org.programmershigh.navigation.change.current.pane.right"
-    
+
     "1" {
         id "core.ordering"
         ordering "name"
@@ -92,6 +92,7 @@ keyBindings {
         isAscending false
         showFoldersOnTop true
     }
+    "." "core.display.hidden"
     
     "Space" "core.select.move.down"
     "Shift+Space" "core.select.move.up"
@@ -100,7 +101,10 @@ keyBindings {
     "Shift+Escape" "core.refresh"
     "G" "core.select.group"
     "Shift+G" "core.deselect.group"
+    "W" "org.programmershigh.selection.select.same"
+    "Shift+W" "org.programmershigh.selection.select.different"
     
+    "X" "core.context.menu"
     "Shift+Return" "core.open.with"
     "L" "core.volumes"
     "H" "core.recent"
@@ -129,13 +133,9 @@ keyBindings {
     "E" "core.edit"
     "V" "core.preview"
     "Shift+V" "org.programmershigh.gadget.preview"
-    "W" "org.programmershigh.selection.select.same"
-    "Shift+W" "org.programmershigh.selection.select.different"
     "T" "core.ext.terminal.open"
     
-    "X" "core.context.menu"
     "Q" "core.queue"
-    "." "core.display.hidden"
 
     "Command+Enter" "core.finder.reveal"
     "Command+C" "core.path"
