@@ -20,7 +20,7 @@ behavior {
     
     table {
         defaults {
-            columns "extension,>size:80,modified:135"
+            columns "extension:60,>size:80,modified:135"
         }
     }
     
@@ -43,6 +43,55 @@ gadgets [
 keyBindings {
     "Left" "org.programmershigh.navigation.change.current.pane.left"
     "Right" "org.programmershigh.navigation.change.current.pane.right"
+    
+    "1" {
+        id "core.ordering"
+        ordering "name"
+        isAscending true
+        showFoldersOnTop true
+    }
+    "Shift+1" {
+        id "core.ordering"
+        ordering "name"
+        isAscending false
+        showFoldersOnTop true
+    }
+    "2" {
+        id "core.ordering"
+        ordering "extension"
+        isAscending true
+        showFoldersOnTop true
+    }
+    "Shift+2" {
+        id "core.ordering"
+        ordering "extension"
+        isAscending false
+        showFoldersOnTop true
+    }
+    "3" {
+        id "core.ordering"
+        ordering "size"
+        isAscending true
+        showFoldersOnTop true
+    }
+    "Shift+3" {
+        id "core.ordering"
+        ordering "size"
+        isAscending false
+        showFoldersOnTop true
+    }
+    "4" {
+        id "core.ordering"
+        ordering "modified"
+        isAscending true
+        showFoldersOnTop true
+    }
+    "Shift+4" {
+        id "core.ordering"
+        ordering "modified"
+        isAscending false
+        showFoldersOnTop true
+    }
     
     "Space" "core.select.move.down"
     "Shift+Space" "core.select.move.up"
@@ -76,7 +125,6 @@ keyBindings {
     "S" "core.symlink"
     "U" "core.extract"
     "I" "core.disk.usage"
-    "Shift+I" "core.finder.showInfo"
     
     "E" "core.edit"
     "V" "core.preview"
@@ -88,4 +136,8 @@ keyBindings {
     "X" "core.context.menu"
     "Q" "core.queue"
     "." "core.display.hidden"
+
+    "Command+Enter" "core.finder.reveal"
+    "Command+C" "core.path"
+    "Command+I" "core.finder.showInfo"
 }
