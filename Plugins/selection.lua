@@ -7,7 +7,7 @@ plugin {
 local function compare(item1, item2)
     local info1 = item1.info
     local info2 = item2.info
-    return info1.isFolder == info2.isFolder and info1.name == info2.name and info1.size == info2.size and info1.dateCreated == info2.dateCreated and info1.dateModified == info2.dateModified
+    return info1.name == info2.name and info1.size == info2.size and info1.dateCreated == info2.dateCreated and info1.dateModified == info2.dateModified
 end
 
 local function find(model, item)
@@ -26,7 +26,7 @@ action {
         local model = context.activePane.model
         for i = 1, model.lastIndex do
             local item = model:getItem(i)
-            if not item.info.isFolder and find(context.inactivePane.model, item) then
+            if item.info.isFile and find(context.inactivePane.model, item) then
                 model:select({from = i, to = i + 1})
             end
         end
@@ -40,7 +40,7 @@ action {
         local model = context.activePane.model
         for i = 1, model.lastIndex do
             local item = model:getItem(i)
-            if not item.info.isFolder and not find(context.inactivePane.model, item) then
+            if item.info.isFile and not find(context.inactivePane.model, item) then
                 model:select({from = i, to = i + 1})
             end
         end
@@ -53,7 +53,7 @@ action {
     apply = function(context)
         local model = context.activePane.model
         for i = 1, model.lastIndex do
-            if not model:getItem(i).info.isFolder then
+            if model:getItem(i).info.isFile then
                 model:select({from = i, to = i + 1})
             end
         end
@@ -66,7 +66,7 @@ action {
     apply = function(context)
         local model = context.activePane.model
         for i = 1, model.lastIndex do
-            if not model:getItem(i).info.isFolder then
+            if model:getItem(i).info.isFile then
                 model:invertSelection({from = i, to = i + 1})
             end
         end
