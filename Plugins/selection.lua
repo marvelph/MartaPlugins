@@ -30,7 +30,7 @@ action {
         for i = 1, model.lastIndex do
             local item = model:getItem(i)
             if item.info.isFile and find(context.inactivePane.model, item) then
-                model:select {from = i, to = i + 1}
+                model:select(i)
             end
         end
     end
@@ -44,7 +44,7 @@ action {
         for i = 1, model.lastIndex do
             local item = model:getItem(i)
             if item.info.isFile and not find(context.inactivePane.model, item) then
-                model:select {from = i, to = i + 1}
+                model:select(i)
             end
         end
     end
@@ -57,7 +57,7 @@ action {
         local model = context.activePane.model
         for i = 1, model.lastIndex do
             if model:getItem(i).info.isFile then
-                model:select {from = i, to = i + 1}
+                model:select(i)
             end
         end
     end
@@ -70,7 +70,7 @@ action {
         local model = context.activePane.model
         for i = 1, model.lastIndex do
             if model:getItem(i).info.isFile then
-                model:invertSelection {from = i, to = i + 1}
+                model:invertSelection(i)
             end
         end
     end
