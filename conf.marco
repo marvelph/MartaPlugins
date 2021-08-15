@@ -26,6 +26,8 @@ behavior {
     
     quickSelect {
         activateOnAnyCharacter false
+        defaultMode "substring"
+        filterMatchedItems true
     }
 
 }
