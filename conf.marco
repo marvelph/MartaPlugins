@@ -32,6 +32,11 @@ behavior {
 
 }
 
+etty {
+    fonts {
+        normal [ "SF Mono" 12 ]
+    }
+}
 fonts {
     preferences [ "SF Mono" 12 ]
 }
