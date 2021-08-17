@@ -20,7 +20,7 @@ behavior {
     
     table {
         defaults {
-            columns "extension:60,>size:85,modified:150"
+            columns "extension:60,>size:80,modified:135"
         }
     }
     
@@ -33,8 +33,6 @@ behavior {
 }
 
 fonts {
-    breadcrumbs [ "SF Mono" 12 ]
-    files [ "SF Mono" 12 ]
     preferences [ "SF Mono" 12 ]
 }
 
