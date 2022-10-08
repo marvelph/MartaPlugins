@@ -29,7 +29,7 @@ action {
 
 action {
     id = "clone.active",
-    name = "Clone Current Folder to Acive Pane",
+    name = "Clone Current Folder to Active Pane",
     apply = function(context)
         local folder = context.inactivePane.model.folder
         if folder ~= nil then
@@ -40,7 +40,7 @@ action {
 
 action {
     id = "clone.inactive",
-    name = "Clone Current Folder to Inacive Pane",
+    name = "Clone Current Folder to Inactive Pane",
     apply = function(context)
         local folder = context.activePane.model.folder
         if folder ~= nil then
