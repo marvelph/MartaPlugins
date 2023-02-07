@@ -51,6 +51,24 @@ action {
 }
 
 action {
+    id = "select.extension",
+    name = "Select Extension",
+    apply = function(context)
+        local model = context.activePane.model
+        local currentFile = model.currentFile
+        if currentFile ~= nul then
+            martax.alert(currentFile.pathExtension)
+            for i = 1, model.lastIndex do
+                local item = model:getItem(i)
+                if item.info.pathExtension == currentFile.pathExtension then
+                    model:select(i)
+                end
+            end
+        end
+    end
+}
+
+action {
     id = "select.all.file",
     name = "Select All File",
     apply = function(context)
