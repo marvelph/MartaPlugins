@@ -14,7 +14,7 @@ local function compare(item1, item2)
 end
 
 local function find(model, item)
-    for i = 1, model.lastIndex do
+    for i = 0, model.lastIndex do
         if compare(model:getItem(i), item) then
             return true
         end
@@ -27,7 +27,7 @@ action {
     name = "Select Same",
     apply = function(context)
         local model = context.activePane.model
-        for i = 1, model.lastIndex do
+        for i = 0, model.lastIndex do
             local item = model:getItem(i)
             if item.info.isFile and find(context.inactivePane.model, item) then
                 model:select(i)
@@ -41,7 +41,7 @@ action {
     name = "Select Different",
     apply = function(context)
         local model = context.activePane.model
-        for i = 1, model.lastIndex do
+        for i = 0, model.lastIndex do
             local item = model:getItem(i)
             if item.info.isFile and not find(context.inactivePane.model, item) then
                 model:select(i)
@@ -57,8 +57,7 @@ action {
         local model = context.activePane.model
         local currentFile = model.currentFile
         if currentFile ~= nul then
-            martax.alert(currentFile.pathExtension)
-            for i = 1, model.lastIndex do
+            for i = 0, model.lastIndex do
                 local item = model:getItem(i)
                 if item.info.pathExtension == currentFile.pathExtension then
                     model:select(i)
@@ -73,7 +72,7 @@ action {
     name = "Select All File",
     apply = function(context)
         local model = context.activePane.model
-        for i = 1, model.lastIndex do
+        for i = 0, model.lastIndex do
             if model:getItem(i).info.isFile then
                 model:select(i)
             end
@@ -86,7 +85,7 @@ action {
     name = "Invert Selection File",
     apply = function(context)
         local model = context.activePane.model
-        for i = 1, model.lastIndex do
+        for i = 0, model.lastIndex do
             if model:getItem(i).info.isFile then
                 model:invertSelection(i)
             end
