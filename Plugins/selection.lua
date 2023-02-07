@@ -24,34 +24,6 @@ local function find(anotherModel, item)
 end
 
 action {
-    id = "select.same",
-    name = "Select Same",
-    apply = function(context)
-        local model = context.activePane.model
-        for i = 0, model.lastIndex do
-            local item = model:getItem(i)
-            if item.kind == "file" and find(context.inactivePane.model, item) then
-                model:select(i)
-            end
-        end
-    end
-}
-
-action {
-    id = "select.different",
-    name = "Select Different",
-    apply = function(context)
-        local model = context.activePane.model
-        for i = 0, model.lastIndex do
-            local item = model:getItem(i)
-            if item.kind == "file" and not find(context.inactivePane.model, item) then
-                model:select(i)
-            end
-        end
-    end
-}
-
-action {
     id = "select.extension",
     name = "Select Extension",
     apply = function(context)
@@ -63,6 +35,34 @@ action {
                 if item.kind == "file" and item.info.pathExtension == currentFile.pathExtension then
                     model:select(i)
                 end
+            end
+        end
+    end
+}
+
+action {
+    id = "select.same.file",
+    name = "Select Same File",
+    apply = function(context)
+        local model = context.activePane.model
+        for i = 0, model.lastIndex do
+            local item = model:getItem(i)
+            if item.kind == "file" and item.info.isFile and find(context.inactivePane.model, item) then
+                model:select(i)
+            end
+        end
+    end
+}
+
+action {
+    id = "select.different.file",
+    name = "Select Different File",
+    apply = function(context)
+        local model = context.activePane.model
+        for i = 0, model.lastIndex do
+            local item = model:getItem(i)
+            if item.kind == "file" and item.info.isFile and not find(context.inactivePane.model, item) then
+                model:select(i)
             end
         end
     end
