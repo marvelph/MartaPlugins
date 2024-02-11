@@ -123,8 +123,8 @@ keyBindings {
     "Shift+Right" "core.forward"
     "J" "core.favorites"
     "Shift+J" "core.go"
-    "O" "org.programmershigh.navigation.clone.active"
-    "Shift+O" "org.programmershigh.navigation.clone.inactive"
+    "Shift+O" "org.programmershigh.navigation.clone.active"
+    "O" "org.programmershigh.navigation.clone.inactive"
     "F" "core.lookup.here"
     "Shift+F" "core.lookup"
 
