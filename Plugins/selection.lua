@@ -7,16 +7,10 @@ plugin {
     url = "https://github.com/marvelph/MartaPlugins"
 }
 
-local function compare(item1, item2)
-    local info1 = item1.info
-    local info2 = item2.info
-    return info1.name == info2.name and info1.size == info2.size and info1.dateCreated == info2.dateCreated and info1.dateModified == info2.dateModified
-end
-
 local function find(anotherModel, item)
     for i = 0, anotherModel.lastIndex do
     local anotherItem = anotherModel:getItem(i)
-        if anotherItem.kind == "file" and compare(anotherItem, item) then
+        if anotherItem.kind == "file" and anotherItem.info.name == item.info.name then
             return true
         end
     end
