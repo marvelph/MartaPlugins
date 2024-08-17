@@ -1,7 +1,7 @@
 plugin {
     id = "org.programmershigh.navigation",
     name = "Navigation",
-    apiVersion = "2.1",
+    apiVersion = "2.2",
     author = "Kenji Nishishiro",
     email = "marvel@programmershigh.org",
     url = "https://github.com/marvelph/MartaPlugins"

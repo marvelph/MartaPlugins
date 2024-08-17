@@ -1,16 +1,16 @@
 plugin {
     id = "org.programmershigh.selection",
     name = "Selection",
-    apiVersion = "2.1",
+    apiVersion = "2.2",
     author = "Kenji Nishishiro",
     email = "marvel@programmershigh.org",
     url = "https://github.com/marvelph/MartaPlugins"
 }
 
-local function find(anotherModel, item)
-    for i = 0, anotherModel.lastIndex do
-    local anotherItem = anotherModel:getItem(i)
-        if anotherItem.kind == "file" and anotherItem.info.name == item.info.name then
+local function find(inactiveModel, item)
+    for i = 0, inactiveModel.lastIndex do
+    local inactiveItem = inactiveModel:getItem(i)
+        if inactiveItem.kind == "file" and inactiveItem.info.isFile and inactiveItem.info.name == item.info.name then
             return true
         end
     end
@@ -22,11 +22,11 @@ action {
     name = "Select Extension",
     apply = function(context)
         local model = context.activePane.model
-        local currentFile = model.currentFile
-        if currentFile ~= nul then
+        local currentInfo = model.currentFileInfo
+        if currentInfo ~= nil and currentInfo.isFile then
             for i = 0, model.lastIndex do
                 local item = model:getItem(i)
-                if item.kind == "file" and item.info.pathExtension == currentFile.pathExtension then
+                if item.kind == "file" and item.info.isFile and item.info.extension == currentInfo.extension then
                     model:select(i)
                 end
             end
