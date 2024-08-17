@@ -19,6 +19,7 @@ behavior {
     }
     
     table {
+        hideExtensions true
         defaults {
             columns "extension:60,>size:80,modified:135"
         }
