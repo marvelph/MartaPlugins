@@ -145,11 +145,11 @@ keyBindings {
     "E" "core.edit"
     "V" "core.preview"
     "Shift+V" "org.programmershigh.gadget.preview"
-    "T" "core.ext.terminal.open"
     
     "Q" "core.queue"
 
     "Command+Enter" "core.finder.reveal"
     "Command+C" "core.path"
     "Command+I" "core.finder.showInfo"
+    "Command+O" "core.terminal.activate"
 }
