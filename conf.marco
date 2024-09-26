@@ -1,5 +1,5 @@
 environment {
-    textEditor "CotEditor"
+    textEditor "Zed"
 }
 
 behavior {
