@@ -9,7 +9,7 @@ plugin {
 
 local function find(inactiveModel, item)
     for i = 0, inactiveModel.lastIndex do
-    local inactiveItem = inactiveModel:getItem(i)
+        local inactiveItem = inactiveModel:getItem(i)
         if inactiveItem.kind == "file" and inactiveItem.info.isFile and inactiveItem.info.name == item.info.name then
             return true
         end
