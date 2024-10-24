@@ -32,7 +32,7 @@ action {
     name = "Clone Current Folder to Active Pane",
     apply = function(context)
         local folder = context.inactivePane.model.folder
-        if folder ~= nil then
+        if folder then
             context.activePane.model:load(folder)
         end
     end
@@ -43,7 +43,7 @@ action {
     name = "Clone Current Folder to Inactive Pane",
     apply = function(context)
         local folder = context.activePane.model.folder
-        if folder ~= nil then
+        if folder then
             context.inactivePane.model:load(folder)
         end
     end

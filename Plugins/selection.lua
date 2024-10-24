@@ -7,7 +7,7 @@ plugin {
     url = "https://github.com/marvelph/MartaPlugins"
 }
 
-local function find(inactiveModel, item)
+function find(inactiveModel, item)
     for i = 0, inactiveModel.lastIndex do
         local inactiveItem = inactiveModel:getItem(i)
         if inactiveItem.kind == "file" and inactiveItem.info.isFile and inactiveItem.info.name == item.info.name then
@@ -23,7 +23,7 @@ action {
     apply = function(context)
         local model = context.activePane.model
         local currentInfo = model.currentFileInfo
-        if currentInfo ~= nil and currentInfo.isFile then
+        if currentInfo and currentInfo.isFile then
             for i = 0, model.lastIndex do
                 local item = model:getItem(i)
                 if item.kind == "file" and item.info.isFile and item.info.extension == currentInfo.extension then
