@@ -12,7 +12,10 @@ action {
     name = "Change Current Pane to Left",
     apply = function(context)
         if context.window.tabs:getPosition(context.activePane) == "right" then
-            context.inactivePane:activateTab()
+            local inactivePane = context.inactivePane
+            if inactivePane then
+                inactivePane:activateTab()
+            end
         end
     end
 }
@@ -22,7 +25,10 @@ action {
     name = "Change Current Pane to Right",
     apply = function(context)
         if context.window.tabs:getPosition(context.activePane) == "left" then
-            context.inactivePane:activateTab()
+            local inactivePane = context.inactivePane
+            if inactivePane then
+                inactivePane:activateTab()
+            end
         end
     end
 }
