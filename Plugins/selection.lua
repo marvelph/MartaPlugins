@@ -7,10 +7,11 @@ plugin {
     url = "https://github.com/marvelph/MartaPlugins"
 }
 
-function find(inactiveModel, item)
+function find(inactiveModel, info)
     for i = 0, inactiveModel.lastIndex do
         local inactiveItem = inactiveModel:getItem(i)
-        if inactiveItem.kind == "file" and inactiveItem.info.isFile and inactiveItem.info.name == item.info.name then
+        local inactiveInfo = inactiveItem.info
+        if inactiveItem.kind == "file" and inactiveInfo and inactiveInfo.isFile and inactiveInfo.name == info.name then
             return true
         end
     end
@@ -22,11 +23,13 @@ action {
     name = "Select Extension",
     apply = function(context)
         local model = context.activePane.model
-        local currentInfo = model.currentFileInfo
-        if currentInfo and currentInfo.isFile then
+        local currentItem = model:getItem(model.currentIndex)
+        local currentInfo = currentItem.info
+        if currentItem.kind == "file" and currentInfo and currentInfo.isFile then
             for i = 0, model.lastIndex do
                 local item = model:getItem(i)
-                if item.kind == "file" and item.info.isFile and item.info.extension == currentInfo.extension then
+                local info = item.info
+                if item.kind == "file" and info and info.isFile and info.extension == currentInfo.extension then
                     model:select(i)
                 end
             end
@@ -41,7 +44,9 @@ action {
         local model = context.activePane.model
         for i = 0, model.lastIndex do
             local item = model:getItem(i)
-            if item.kind == "file" and item.info.isFile and find(context.inactivePane.model, item) then
+            local info = item.info
+            local inactivePane = context.inactivePane
+            if item.kind == "file" and info and inactivePane and info.isFile and find(inactivePane.model, info) then
                 model:select(i)
             end
         end
@@ -55,7 +60,9 @@ action {
         local model = context.activePane.model
         for i = 0, model.lastIndex do
             local item = model:getItem(i)
-            if item.kind == "file" and item.info.isFile and not find(context.inactivePane.model, item) then
+            local info = item.info
+            local inactivePane = context.inactivePane
+            if item.kind == "file" and info and inactivePane and info.isFile and not find(inactivePane.model, info) then
                 model:select(i)
             end
         end
@@ -69,7 +76,8 @@ action {
         local model = context.activePane.model
         for i = 0, model.lastIndex do
             local item = model:getItem(i)
-            if item.kind == "file" and item.info.isFile then
+            local info = item.info
+            if item.kind == "file" and info and info.isFile then
                 model:select(i)
             end
         end
@@ -83,7 +91,8 @@ action {
         local model = context.activePane.model
         for i = 0, model.lastIndex do
             local item = model:getItem(i)
-            if item.kind == "file" and item.info.isFile then
+            local info = item.info
+            if item.kind == "file" and info and info.isFile then
                 model:invertSelection(i)
             end
         end
