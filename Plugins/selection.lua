@@ -23,14 +23,16 @@ action {
     name = "Select Extension",
     apply = function(context)
         local model = context.activePane.model
-        local currentItem = model:getItem(model.currentIndex)
-        local currentInfo = currentItem.info
-        if currentItem.kind == "file" and currentInfo and currentInfo.isFile then
-            for i = 0, model.lastIndex do
-                local item = model:getItem(i)
-                local info = item.info
-                if item.kind == "file" and info and info.isFile and info.extension == currentInfo.extension then
-                    model:select(i)
+        if model.hasCurrent then
+            local currentItem = model:getItem(model.currentIndex)
+            local currentInfo = currentItem.info
+            if currentItem.kind == "file" and currentInfo and currentInfo.isFile then
+                for i = 0, model.lastIndex do
+                    local item = model:getItem(i)
+                    local info = item.info
+                    if item.kind == "file" and info and info.isFile and info.extension == currentInfo.extension then
+                        model:select(i)
+                    end
                 end
             end
         end
