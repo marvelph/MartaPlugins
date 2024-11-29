@@ -106,6 +106,8 @@ keyBindings {
     }
     "." "core.display.hidden"
     
+    "Opt+Up" "org.programmershigh.movement.move.previous.selection"
+    "Opt+Down" "org.programmershigh.movement.move.next.selection"
     "Space" "core.select.move.down"
     "Shift+Space" "core.select.move.up"
     "A" "org.programmershigh.selection.select.invert.file"
