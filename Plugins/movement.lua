@@ -12,12 +12,10 @@ action {
     name = "Move to Next Selection",
     apply = function(context)
         local model = context.activePane.model
-        if model.hasCurrent then
-            for i = model.currentIndex + 1, model.lastIndex do
-                if model:isSelected(i) then
-                    model.currentIndex = i
-                    break
-                end
+        for i = model.currentIndex + 1, model.lastIndex do
+            if model:isSelected(i) then
+                model.currentIndex = i
+                break
             end
         end
     end
@@ -28,12 +26,10 @@ action {
     name = "Move to Previous Selection",
     apply = function(context)
         local model = context.activePane.model
-        if model.hasCurrent then
-            for i = model.currentIndex - 1, 0, -1 do
-                if model:isSelected(i) then
-                    model.currentIndex = i
-                    break
-                end
+        for i = model.currentIndex - 1, 0, -1 do
+            if model:isSelected(i) then
+                model.currentIndex = i
+                break
             end
         end
     end
