@@ -37,9 +37,12 @@ action {
     id = "clone.active",
     name = "Clone Current Folder to Active Pane",
     apply = function(context)
-        local folder = context.inactivePane.model.folder
-        if folder then
-            context.activePane.model:load(folder)
+        local inactivePane = context.inactivePane
+        if inactivePane then
+            local folder = inactivePane.model.folder
+            if folder then
+                context.activePane.model:load(folder)
+            end
         end
     end
 }
@@ -48,9 +51,12 @@ action {
     id = "clone.inactive",
     name = "Clone Current Folder to Inactive Pane",
     apply = function(context)
-        local folder = context.activePane.model.folder
-        if folder then
-            context.inactivePane.model:load(folder)
+        local inactivePane = context.inactivePane
+        if inactivePane then
+            local folder = context.activePane.model.folder
+            if folder then
+                inactivePane.model:load(folder)
+            end
         end
     end
 }
