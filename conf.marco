@@ -1,6 +1,6 @@
 environment {
     terminal "Ghostty"
-    textEditor "Zed"
+    textEditor "CotEditor"
 }
 
 behavior {
@@ -120,6 +120,7 @@ keyBindings {
     
     "X" "core.context.menu"
     "Shift+Return" "core.open.with"
+    "Tab" "core.pane.swap"
     "L" "core.volumes"
     "H" "core.recent"
     "[" "core.back"
