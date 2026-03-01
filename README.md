@@ -1,60 +1,60 @@
 # MartaPlugins
-[Marta](https://marta.sh)のプラグインです。
+[Plugins for Marta](https://marta.sh).
 ## movement.lua
 **Plugin ID:** `org.programmershigh.movement`
 ### Move to Next Selection
 **Action ID:** `move.next.selection`
 
-次に選択されている項目までカーソルを移動します。
+Moves the cursor to the next selected item.
 ### Move to Previous Selection
 **Action ID:** `move.previous.selection`
 
-前に選択されている項目までカーソルを移動します。
+Moves the cursor to the previous selected item.
 ## navigation.lua
 **Plugin ID:** `org.programmershigh.navigation`
 ### Change Current Pane to Left
 **Action ID:** `change.current.pane.left`
 
-左側のパネルにフォーカスを移動します。
+Moves focus to the left pane.
 ### Change Current Pane to Right
 **Action ID:** `change.current.pane.right`
 
-右側のパネルにフォーカスを移動します。
+Moves focus to the right pane.
 ### Clone Current Folder to Active Pane
 **Action ID:** `clone.active`
 
-フォーカスされているパネルのディレクトリをフォーカスされていないパネルのディレクトリに揃えます。
+Matches the active pane directory to the inactive pane directory.
 ### Clone Current Folder to Inactive Pane
 **Action ID:** `clone.inactive`
 
-フォーカスされていないパネルのディレクトリをフォーカスされているパネルのディレクトリに揃えます。
+Matches the inactive pane directory to the active pane directory.
 ### Go to Root
 **Action ID:** `go.root`
 
-ルートディレクトリに移動します。
+Moves to the root directory.
 ### Go to Home
 **Action ID:** `go.home`
 
-ホームディレクトリに移動します。
+Moves to the home directory.
 ## selection.lua
 **Plugin ID:** `org.programmershigh.selection`
 ### Select Same File
 **Action ID:** `select.same.file`
 
-フォーカスされていないパネルに同名のファイルが存在すれば選択します。
+Selects files that also exist in the inactive pane with the same name.
 ### Select Different File
 **Action ID:** `select.different.file`
 
-フォーカスされていないパネルに同名のファイルが存在しなければ選択します。
+Selects files whose name does not exist in the inactive pane.
 ### Select All File
 **Action ID:** `select.all.file`
 
-全てのファイルを選択します。ディレクトリの選択状態は変更されません。
+Selects all files. Directory selections are not changed.
 ### Invert Selection File
 **Action ID:** `select.invert.file`
 
-全てのファイルの選択状態を反転します。ディレクトリの選択状態は変更されません。
+Inverts the selection state of all files. Directory selections are not changed.
 ### Select Extension
 **Action ID:** `select.extension`
 
-カーソルの置かれたファイルと拡張子が同じ全てのファイルを選択します。
+Selects all files with the same extension as the file under the cursor.
