@@ -7,15 +7,12 @@ plugin {
     url = "https://github.com/marvelph/MartaPlugins"
 }
 
-function find(inactiveModel, item)
-    local info = item.info
-    if item.kind == "file" and info and info.isFile then
-        for i = 0, inactiveModel.lastIndex do
-            local inactiveItem = inactiveModel:getItem(i)
-            local inactiveInfo = inactiveItem.info
-            if inactiveItem.kind == "file" and inactiveInfo and inactiveInfo.isFile and inactiveInfo.name == info.name then
-                return true
-            end
+function find(inactiveModel, name)
+    for i = 0, inactiveModel.lastIndex do
+        local inactiveItem = inactiveModel:getItem(i)
+        local inactiveInfo = inactiveItem.info
+        if inactiveItem.kind == "file" and inactiveInfo and inactiveInfo.isFile and inactiveInfo.name == name then
+            return true
         end
     end
     return false
@@ -29,7 +26,9 @@ action {
         if inactivePane then
             local model = context.activePane.model
             for i = 0, model.lastIndex do
-                if find(inactivePane.model, model:getItem(i)) then
+                local item = model:getItem(i)
+                local info = item.info
+                if item.kind == "file" and info and info.isFile and find(inactivePane.model, info.name) then
                     model:select(i)
                 end
             end
@@ -45,7 +44,9 @@ action {
         if inactivePane then
             local model = context.activePane.model
             for i = 0, model.lastIndex do
-                if not find(inactivePane.model, model:getItem(i)) then
+                local item = model:getItem(i)
+                local info = item.info
+                if item.kind == "file" and info and info.isFile and not find(inactivePane.model, info.name) then
                     model:select(i)
                 end
             end
