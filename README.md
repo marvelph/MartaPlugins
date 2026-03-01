@@ -1,2 +1,60 @@
 # MartaPlugins
-Plugins for Marta.
+[Marta](https://marta.sh)のプラグインです。
+## movement.lua
+**Plugin ID:** `org.programmershigh.movement`
+### Move to Next Selection
+**Action ID:** `move.next.selection`
+
+次に選択されている項目までカーソルを移動します。
+### Move to Previous Selection
+**Action ID:** `move.previous.selection`
+
+前に選択されている項目までカーソルを移動します。
+## navigation.lua
+**Plugin ID:** `org.programmershigh.navigation`
+### Change Current Pane to Left
+**Action ID:** `change.current.pane.left`
+
+左側のパネルにフォーカスを移動します。
+### Change Current Pane to Right
+**Action ID:** `change.current.pane.right`
+
+右側のパネルにフォーカスを移動します。
+### Clone Current Folder to Active Pane
+**Action ID:** `clone.active`
+
+フォーカスされているパネルのディレクトリをフォーカスされていないパネルのディレクトリに揃えます。
+### Clone Current Folder to Inactive Pane
+**Action ID:** `clone.inactive`
+
+フォーカスされていないパネルのディレクトリをフォーカスされているパネルのディレクトリに揃えます。
+### Go to Root
+**Action ID:** `go.root`
+
+ルートディレクトリに移動します。
+### Go to Home
+**Action ID:** `go.home`
+
+ホームディレクトリに移動します。
+## selection.lua
+**Plugin ID:** `org.programmershigh.selection`
+### Select Same File
+**Action ID:** `select.same.file`
+
+フォーカスされていないパネルに同名のファイルが存在すれば選択します。
+### Select Different File
+**Action ID:** `select.different.file`
+
+フォーカスされていないパネルに同名のファイルが存在しなければ選択します。
+### Select All File
+**Action ID:** `select.all.file`
+
+全てのファイルを選択します。ディレクトリの選択状態は変更されません。
+### Invert Selection File
+**Action ID:** `select.invert.file`
+
+全てのファイルの選択状態を反転します。ディレクトリの選択状態は変更されません。
+### Select Extension
+**Action ID:** `select.extension`
+
+カーソルの置かれたファイルと拡張子が同じ全てのファイルを選択します。
