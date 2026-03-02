@@ -1,5 +1,5 @@
 # MartaPlugins
-[Marta](https://marta.sh)のプラグインです。
+[Marta](https://marta.sh) のプラグインです。
 ## movement.lua
 **Plugin ID:** `org.programmershigh.movement`
 ### Move to Next Selection
@@ -58,3 +58,15 @@
 **Action ID:** `select.extension`
 
 カーソルの置かれたファイルと拡張子が同じ全てのファイルを選択します。
+
+## 配布元
+このプラグインの配布元は以下です。  
+https://github.com/marvelph/MartaPlugins
+
+## ライセンス
+ライセンスは [LICENSE](LICENSE) を参照してください。
+
+## 連絡先
+不具合報告や要望は GitHub の Issues にお願いします。  
+https://github.com/marvelph/MartaPlugins/issues  
+メール: marvel@programmershigh.org

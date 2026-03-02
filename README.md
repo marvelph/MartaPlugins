@@ -1,5 +1,5 @@
 # MartaPlugins
-[Plugins for Marta](https://marta.sh).
+Plugins for [Marta](https://marta.sh).
 ## movement.lua
 **Plugin ID:** `org.programmershigh.movement`
 ### Move to Next Selection
@@ -58,3 +58,15 @@ Inverts the selection state of all files. Directory selections are not changed.
 **Action ID:** `select.extension`
 
 Selects all files with the same extension as the file under the cursor.
+
+## Distribution
+The plugin is distributed from:
+https://github.com/marvelph/MartaPlugins
+
+## License
+See [LICENSE](LICENSE) for license details.
+
+## Contact
+For bug reports and feature requests, please use GitHub Issues:
+https://github.com/marvelph/MartaPlugins/issues  
+Email: marvel@programmershigh.org
