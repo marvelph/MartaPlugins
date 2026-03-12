@@ -38,23 +38,23 @@
 ホームディレクトリに移動します。
 ## selection.lua
 **Plugin ID:** `org.programmershigh.selection`
-### Select Same File
+### Select Same Files in Inactive Pane
 **Action ID:** `select.same.file`
 
 フォーカスされていないパネルに同名のファイルが存在すれば選択します。
-### Select Different File
+### Select Files Not in Inactive Pane
 **Action ID:** `select.different.file`
 
 フォーカスされていないパネルに同名のファイルが存在しなければ選択します。
-### Select All File
+### Select All Files Only
 **Action ID:** `select.all.file`
 
 全てのファイルを選択します。ディレクトリの選択状態は変更されません。
-### Invert Selection File
+### Invert File Selection Only
 **Action ID:** `select.invert.file`
 
 全てのファイルの選択状態を反転します。ディレクトリの選択状態は変更されません。
-### Select Extension
+### Select Files with Same Extension as Current Item
 **Action ID:** `select.extension`
 
 カーソルの置かれたファイルと拡張子が同じ全てのファイルを選択します。

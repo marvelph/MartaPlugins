@@ -38,23 +38,23 @@ Moves to the root directory.
 Moves to the home directory.
 ## selection.lua
 **Plugin ID:** `org.programmershigh.selection`
-### Select Same File
+### Select Same Files in Inactive Pane
 **Action ID:** `select.same.file`
 
 Selects files that also exist in the inactive pane with the same name.
-### Select Different File
+### Select Files Not in Inactive Pane
 **Action ID:** `select.different.file`
 
 Selects files whose name does not exist in the inactive pane.
-### Select All File
+### Select All Files Only
 **Action ID:** `select.all.file`
 
 Selects all files. Directory selections are not changed.
-### Invert Selection File
+### Invert File Selection Only
 **Action ID:** `select.invert.file`
 
 Inverts the selection state of all files. Directory selections are not changed.
-### Select Extension
+### Select Files with Same Extension as Current Item
 **Action ID:** `select.extension`
 
 Selects all files with the same extension as the file under the cursor.

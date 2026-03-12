@@ -20,7 +20,7 @@ end
 
 action {
     id = "select.same.file",
-    name = "Select Same File",
+    name = "Select Same Files in Inactive Pane",
     apply = function(context)
         local inactivePane = context.inactivePane
         if inactivePane then
@@ -38,7 +38,7 @@ action {
 
 action {
     id = "select.different.file",
-    name = "Select Different File",
+    name = "Select Files Not in Inactive Pane",
     apply = function(context)
         local inactivePane = context.inactivePane
         if inactivePane then
@@ -56,7 +56,7 @@ action {
 
 action {
     id = "select.all.file",
-    name = "Select All File",
+    name = "Select All Files Only",
     apply = function(context)
         local model = context.activePane.model
         for i = 0, model.lastIndex do
@@ -71,7 +71,7 @@ action {
 
 action {
     id = "select.invert.file",
-    name = "Invert Selection File",
+    name = "Invert File Selection Only",
     apply = function(context)
         local model = context.activePane.model
         for i = 0, model.lastIndex do
@@ -86,7 +86,7 @@ action {
 
 action {
     id = "select.extension",
-    name = "Select Extension",
+    name = "Select Files with Same Extension as Current Item",
     apply = function(context)
         local model = context.activePane.model
         if model.hasCurrent then
