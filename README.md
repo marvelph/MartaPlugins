@@ -1,4 +1,6 @@
 # MartaPlugins
+[English](README.md) | [日本語](README.ja.md)
+
 Plugins for [Marta](https://marta.sh).
 ## movement.lua
 **Plugin ID:** `org.programmershigh.movement`
