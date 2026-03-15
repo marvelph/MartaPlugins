@@ -123,6 +123,7 @@ keyBindings {
     "Tab" "core.pane.swap"
     "L" "core.volumes"
     "H" "core.recent"
+    "Shift+H" "core.hierarchy"
     "[" "core.back"
     "]" "core.forward"
     "J" "core.favorites"
