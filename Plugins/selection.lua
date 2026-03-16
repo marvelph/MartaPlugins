@@ -7,7 +7,7 @@ plugin {
     url = "https://github.com/marvelph/MartaPlugins"
 }
 
-function find(inactiveModel, name)
+local function find(inactiveModel, name)
     for i = 0, inactiveModel.lastIndex do
         local inactiveItem = inactiveModel:getItem(i)
         local inactiveInfo = inactiveItem.info
