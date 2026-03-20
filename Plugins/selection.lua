@@ -7,15 +7,17 @@ plugin {
     url = "https://github.com/marvelph/MartaPlugins"
 }
 
-local function find(inactiveModel, name)
-    for i = 0, inactiveModel.lastIndex do
-        local inactiveItem = inactiveModel:getItem(i)
-        local inactiveInfo = inactiveItem.info
-        if inactiveItem.kind == "file" and inactiveInfo and inactiveInfo.isFile and inactiveInfo.name == name then
-            return true
+local function collectFileNames(Pane)
+    local fileNames = {}
+    local model = Pane.model
+    for i = 0, model.lastIndex do
+        local item = model:getItem(i)
+        local info = item.info
+        if item.kind == "file" and info and info.isFile then
+            fileNames[info.name] = true
         end
     end
-    return false
+    return fileNames
 end
 
 action {
@@ -24,11 +26,12 @@ action {
     apply = function(context)
         local inactivePane = context.inactivePane
         if inactivePane then
+            local inactiveFileNames = collectFileNames(inactivePane)
             local model = context.activePane.model
             for i = 0, model.lastIndex do
                 local item = model:getItem(i)
                 local info = item.info
-                if item.kind == "file" and info and info.isFile and find(inactivePane.model, info.name) then
+                if item.kind == "file" and info and info.isFile and inactiveFileNames[info.name] then
                     model:select(i)
                 end
             end
@@ -42,11 +45,12 @@ action {
     apply = function(context)
         local inactivePane = context.inactivePane
         if inactivePane then
+            local inactiveFileNames = collectFileNames(inactivePane)
             local model = context.activePane.model
             for i = 0, model.lastIndex do
                 local item = model:getItem(i)
                 local info = item.info
-                if item.kind == "file" and info and info.isFile and not find(inactivePane.model, info.name) then
+                if item.kind == "file" and info and info.isFile and not inactiveFileNames[info.name] then
                     model:select(i)
                 end
             end
