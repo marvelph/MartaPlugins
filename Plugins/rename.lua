@@ -123,8 +123,16 @@ local function buildName(pattern, index, name, extension)
                 return string.format("%0" .. digits .. "d", index)
             elseif placeholder == "name" then
                 return name
+            elseif placeholder == "name:upper" then
+                return name:upper()
+            elseif placeholder == "name:lower" then
+                return name:lower()
             elseif placeholder == "extension" then
                 return extension
+            elseif placeholder == "extension:upper" then
+                return extension:upper()
+            elseif placeholder == "extension:lower" then
+                return extension:lower()
             else
                 return "{" .. placeholder .. "}"
             end
