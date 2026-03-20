@@ -50,7 +50,11 @@ Renames selected files in bulk using a pattern. The following placeholders are a
 | `{index}` | Replaced with a 1-based sequence number. | `1`, `2`, `3` |
 | `{index:N}` | Replaced with a 1-based sequence number. The number is zero-padded to N digits. | `{index:2}` → `01` |
 | `{name}` | Replaced with the original file name without the extension. | `report` |
+| `{name:upper}` | Replaced with the original file name in uppercase (without the extension). | `REPORT` |
+| `{name:lower}` | Replaced with the original file name in lowercase (without the extension). | `report` |
 | `{extension}` | Replaced with the original file extension. | `txt` |
+| `{extension:upper}` | Replaced with the original file extension in uppercase. | `TXT` |
+| `{extension:lower}` | Replaced with the original file extension in lowercase. | `txt` |
 ## selection.lua
 **Plugin ID:** `org.programmershigh.selection`
 ### Select Same Files in Inactive Pane

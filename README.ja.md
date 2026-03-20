@@ -50,7 +50,11 @@
 | `{index}` | 1から始まる連番に置き換えます。 | `1`, `2`, `3` |
 | `{index:N}` | 1から始まる連番に置き換えます。連番はN桁のゼロ埋め形式になります。 | `{index:2}` → `01` |
 | `{name}` | 拡張子を除いた元のファイル名に置き換えます。 | `report` |
+| `{name:upper}` | 拡張子を除いた元のファイル名を大文字に変換して置き換えます。 | `REPORT` |
+| `{name:lower}` | 拡張子を除いた元のファイル名を小文字に変換して置き換えます。 | `report` |
 | `{extension}` | 元の拡張子に置き換えます。 | `txt` |
+| `{extension:upper}` | 元の拡張子を大文字に変換して置き換えます。 | `TXT` |
+| `{extension:lower}` | 元の拡張子を小文字に変換して置き換えます。 | `txt` |
 ## selection.lua
 **Plugin ID:** `org.programmershigh.selection`
 ### Select Same Files in Inactive Pane
