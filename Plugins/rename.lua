@@ -55,8 +55,8 @@ action {
                 local file = info.file
                 local name = buildName(pattern, index, file.nameWithoutExtension, file.extension)
                 file:rename(file.parent:resolve(name).path)
+                index = index + 1
             end
-            index = index + 1
         end
     end
 }
