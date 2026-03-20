@@ -7,16 +7,62 @@ plugin {
     url = "https://github.com/marvelph/MartaPlugins"
 }
 
-local function prompt()
-    local script = 'display dialog "Pattern" with title "Rename with Pattern" default answer "{index:2}-{name}.{extension}" buttons {"Cancel", "Rename"} default button "Rename" cancel button "Cancel"'
-    local handle = io.popen("osascript -e '" .. script .. "'")
+local function escape(text)
+    text = text:gsub("\\", "\\\\")
+    text = text:gsub("\"", "\\\"")
+    return text
+end
+
+local function dialog(message, defaultAnswer, hiddenAnswer, buttons, defaultButton, cancelButton, withTitle, withIcon, givingUpAfter)
+    local script = "osascript <<'EOF'\n"
+    script = script .. 'display dialog "' .. escape(message) .. '"'
+    if defaultAnswer then
+        script = script .. ' default answer "' .. escape(defaultAnswer) .. '"'
+    end
+    if hiddenAnswer then
+        script = script .. ' hidden answer "' .. tostring(hiddenAnswer) .. '"'
+    end
+    if buttons then
+        local items = {}
+        for _, button in ipairs(buttons) do
+            table.insert(items, '"' .. escape(button) .. '"')
+        end
+        script = script .. " buttons {" .. table.concat(items, ", ") .. "}"
+    end
+    if defaultButton then
+        script = script .. ' default button "' .. escape(defaultButton) .. '"'
+    end
+    if cancelButton then
+        script = script .. ' cancel button "' .. escape(cancelButton) .. '"'
+    end
+    if withTitle then
+        script = script .. ' with title "' .. escape(withTitle) .. '"'
+    end
+    if withIcon then
+        script = script .. ' with icon ' .. withIcon
+    end
+    if givingUpAfter then
+        script = script .. ' giving up after ' .. givingUpAfter
+    end
+    script = script .. "\nEOF"
+
+    local handle = io.popen(script)
     local result = handle:read("*a")
     handle:close()
-    local button, text = result:match("button returned:(.*), text returned:([^\n]*)")
-    if button == "Rename" then
-        return text
+
+    if result ~= "" then
+        if givingUpAfter then
+            local button, text, gaveUp = result:match("button returned:(.*), text returned:(.*), gave up:(.*)\n")
+            return button, text, gaveUp == "true"
+        else
+            return result:match("button returned:(.*), text returned:(.*)\n")
+        end
     else
-        return nil
+        if givingUpAfter then
+            return cancelButton, "", false
+        else
+            return cancelButton, ""
+        end
     end
 end
 
@@ -65,8 +111,8 @@ action {
     id = "rename.pattern",
     name = "Rename with Pattern",
     apply = function(context)
-        local pattern = prompt()
-        if not pattern then
+        local button, pattern = dialog("Pattern", "{index:2}-{name}.{extension}", nil, {"Cancel", "Rename"}, "Rename", "Cancel", "Rename with Pattern")
+        if button == "Cancel" then
             return
         end
 
