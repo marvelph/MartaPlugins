@@ -174,7 +174,7 @@ action {
 
         for _, rename in ipairs(renames) do
             local file = rename.file.parent:resolve(rename.name)
-            if file:exists() then
+            if rename.file.name:lower() ~= rename.name:lower() and file:exists() then
                 local _, info = file:readInfo({"dateModified", "size"})
                 local text = "File already exists:\n"
                 text = text .. rename.file.name .. " → " .. file.name
