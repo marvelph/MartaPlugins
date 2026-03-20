@@ -153,6 +153,17 @@ action {
             end
         end
 
+        local names = {}
+        for _, rename in ipairs(renames) do
+            if names[rename.name] then
+                local text = "Rename conflict:\n"
+                text = text .. names[rename.name] .. " → " .. rename.name .. " ← " .. rename.file.name
+                alert(text, nil, "warning", {"Abort"}, "Abort")
+                return
+            end
+            names[rename.name] = rename.file.name
+        end
+
         for _, rename in ipairs(renames) do
             local file = rename.file.parent:resolve(rename.name)
             if file:exists() then
