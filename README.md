@@ -38,6 +38,19 @@ Moves to the root directory.
 **Action ID:** `go.home`
 
 Moves to the home directory.
+## rename.lua
+**Plugin ID:** `org.programmershigh.rename`
+### Rename with Pattern
+**Action ID:** `rename.pattern`
+
+Renames selected files in bulk using a pattern. The following placeholders are available.
+
+| Placeholder | Description | Example |
+|---|---|---|
+| `{index}` | Replaced with a 1-based sequence number. | `1`, `2`, `3` |
+| `{index:N}` | Replaced with a 1-based sequence number. The number is zero-padded to N digits. | `{index:2}` → `01` |
+| `{name}` | Replaced with the original file name without the extension. | `report` |
+| `{extension}` | Replaced with the original file extension. | `txt` |
 ## selection.lua
 **Plugin ID:** `org.programmershigh.selection`
 ### Select Same Files in Inactive Pane

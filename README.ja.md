@@ -38,6 +38,19 @@
 **Action ID:** `go.home`
 
 ホームディレクトリに移動します。
+## rename.lua
+**Plugin ID:** `org.programmershigh.rename`
+### Rename with Pattern
+**Action ID:** `rename.pattern`
+
+パターンを指定して選択したファイルを一括でリネームします。以下のプレースホルダが使えます。
+
+| プレースホルダ | 説明 | 例 |
+|---|---|---|
+| `{index}` | 1から始まる連番に置き換えます。 | `1`, `2`, `3` |
+| `{index:N}` | 1から始まる連番に置き換えます。連番はN桁のゼロ埋め形式になります。 | `{index:2}` → `01` |
+| `{name}` | 拡張子を除いた元のファイル名に置き換えます。 | `report` |
+| `{extension}` | 元の拡張子に置き換えます。 | `txt` |
 ## selection.lua
 **Plugin ID:** `org.programmershigh.selection`
 ### Select Same Files in Inactive Pane
