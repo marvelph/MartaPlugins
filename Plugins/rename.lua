@@ -13,9 +13,9 @@ local function escape(text)
     return text
 end
 
-local function dialog(message, defaultAnswer, hiddenAnswer, buttons, defaultButton, cancelButton, withTitle, withIcon, givingUpAfter)
+local function dialog(text, defaultAnswer, hiddenAnswer, buttons, defaultButton, cancelButton, withTitle, withIcon, givingUpAfter)
     local script = "osascript <<'EOF'\n"
-    script = script .. 'display dialog "' .. escape(message) .. '"'
+    script = script .. 'display dialog "' .. escape(text) .. '"'
     if defaultAnswer then
         script = script .. ' default answer "' .. escape(defaultAnswer) .. '"'
     end
@@ -66,25 +66,50 @@ local function dialog(message, defaultAnswer, hiddenAnswer, buttons, defaultButt
     end
 end
 
-local function alert(message, description)
-    message = message:gsub('"', '" & quote & "')
-    message = message:gsub('\n', '" & return & "')
-    description = description:gsub('"', '" & quote & "')
-    description = description:gsub('\n', '" & return & "')
-    local script = 'display alert "' .. message .. '" message "' .. description .. '" as warning buttons {"Skip", "Abort"} default button "Abort" cancel button "Skip"'
-    local path = os.tmpname()
-    local file = io.open(path, "w")
-    file:write(script)
-    file:close()
-    print(script)
-    local handle = io.popen("osascript '" .. path .. "'")
+local function alert(text, message, as, buttons, defaultButton, cancelButton, givingUpAfter)
+    local script = "osascript <<'EOF'\n"
+    script = script .. 'display alert "' .. escape(text) .. '"'
+    if message then
+        script = script .. ' message "' .. escape(message) .. '"'
+    end
+    if as then
+        script = script .. ' as ' .. as
+    end
+    if buttons then
+        local items = {}
+        for _, button in ipairs(buttons) do
+            table.insert(items, '"' .. escape(button) .. '"')
+        end
+        script = script .. " buttons {" .. table.concat(items, ", ") .. "}"
+    end
+    if defaultButton then
+        script = script .. ' default button "' .. escape(defaultButton) .. '"'
+    end
+    if cancelButton then
+        script = script .. ' cancel button "' .. escape(cancelButton) .. '"'
+    end
+    if givingUpAfter then
+        script = script .. ' giving up after ' .. givingUpAfter
+    end
+    script = script .. "\nEOF"
+
+    local handle = io.popen(script)
     local result = handle:read("*a")
     handle:close()
-    local button, text = result:match("button returned:([^\n]*)")
-    if button == "Abort" then
-        return true
+
+    if result ~= "" then
+        if givingUpAfter then
+            local button, gaveUp = result:match("button returned:(.*), gave up:(.*)\n")
+            return button, gaveUp == "true"
+        else
+            return result:match("button returned:(.*)\n")
+        end
     else
-        return nil
+        if givingUpAfter then
+            return cancelButton, false
+        else
+            return cancelButton
+        end
     end
 end
 
@@ -124,13 +149,11 @@ action {
                 local name = buildName(pattern, index, file.nameWithoutExtension, file.extension)
                 local error = file:rename(file.parent:resolve(name).path)
                 if error then
-                    print(error.description)
-                    local message = "Can't rename \"" .. file.nameWithoutExtension .. "\""
-                    local description = error.description .. "\n\n"
-                    description = description .. "Full path: " .. tostring(file.path)
-                    local abort = alert(message, description)
-                    print(abort)
-                    if abort then
+                    local text = "Can't rename \"" .. file.nameWithoutExtension .. "\""
+                    local message = error.description .. "\n\n"
+                    message = message .. "Full path: " .. tostring(file.path)
+                    local button = alert(text, message, "warning", {"Skip", "Abort"}, "Abort", "Skip")
+                    if button == "Abort" then
                         return
                     end
                 end
