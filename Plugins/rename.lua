@@ -169,20 +169,21 @@ action {
                 message = message .. "New:\n"
                 message = message .. os.date("%Y-%m-%d %H:%M:%S", rename.info.dateModified) .. ", " .. martax.formatSize(rename.info.size) .. "\n"
                 message = message .. tostring(rename.file.path)
-                local button = alert(text, message, "informational", {"Skip", "Abort"}, "Abort", "Skip")
+                alert(text, message, "informational", {"Abort"}, "Abort")
+                return
+            end
+        end
+
+        for _, rename in ipairs(renames) do
+            local file = rename.file.parent:resolve(rename.name)
+            local error = rename.file:rename(file.path)
+            if error then
+                local text = "Can't rename \"" .. rename.file.name .. "\""
+                local message = error.description .. "\n\n"
+                message = message .. "Full path: " .. tostring(rename.file.path)
+                local button = alert(text, message, "warning", {"Skip", "Abort"}, "Abort", "Skip")
                 if button == "Abort" then
                     return
-                end
-            else
-                local error = rename.file:rename(file.path)
-                if error then
-                    local text = "Can't rename \"" .. rename.file.name .. "\""
-                    local message = error.description .. "\n\n"
-                    message = message .. "Full path: " .. tostring(rename.file.path)
-                    local button = alert(text, message, "warning", {"Skip", "Abort"}, "Abort", "Skip")
-                    if button == "Abort" then
-                        return
-                    end
                 end
             end
         end
