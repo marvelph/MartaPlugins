@@ -141,24 +141,28 @@ action {
             return
         end
 
+        local renames = {}
         local model = context.activePane.model
         local index = 1
         for _, info in ipairs(model.activeFileInfos) do
             if info.isFile then
                 local file = info.file
                 local name = buildName(pattern, index, file.nameWithoutExtension, file.extension)
-                local error = file:rename(file.parent:resolve(name).path)
-                if error then
-                    local text = "Can't rename \"" .. file.nameWithoutExtension .. "\""
-                    local message = error.description .. "\n\n"
-                    message = message .. "Full path: " .. tostring(file.path)
-                    local button = alert(text, message, "warning", {"Skip", "Abort"}, "Abort", "Skip")
-                    if button == "Abort" then
-                        return
-                    end
-                end
-
+                table.insert(renames, {file = file, name = name})
                 index = index + 1
+            end
+        end
+
+        for _, rename in ipairs(renames) do
+            local error = rename.file:rename(rename.file.parent:resolve(rename.name).path)
+            if error then
+                local text = "Can't rename \"" .. rename.file.name .. "\""
+                local message = error.description .. "\n\n"
+                message = message .. "Full path: " .. tostring(rename.file.path)
+                local button = alert(text, message, "warning", {"Skip", "Abort"}, "Abort", "Skip")
+                if button == "Abort" then
+                    return
+                end
             end
         end
     end
