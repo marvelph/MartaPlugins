@@ -148,20 +148,41 @@ action {
             if info.isFile then
                 local file = info.file
                 local name = buildName(pattern, index, file.nameWithoutExtension, file.extension)
-                table.insert(renames, {file = file, name = name})
+                table.insert(renames, {info = info, file = file, name = name})
                 index = index + 1
             end
         end
 
         for _, rename in ipairs(renames) do
-            local error = rename.file:rename(rename.file.parent:resolve(rename.name).path)
-            if error then
-                local text = "Can't rename \"" .. rename.file.name .. "\""
-                local message = error.description .. "\n\n"
-                message = message .. "Full path: " .. tostring(rename.file.path)
-                local button = alert(text, message, "warning", {"Skip", "Abort"}, "Abort", "Skip")
+            local file = rename.file.parent:resolve(rename.name)
+            if file:exists() then
+                local _, info = file:readInfo({"dateModified", "size"})
+                local text = "File already exists:\n"
+                text = text .. rename.file.name .. " → " .. file.name
+                local message = "Existing:\n"
+                if info then
+                    message = message .. os.date("%Y-%m-%d %H:%M:%S", info.dateModified) .. ", " .. martax.formatSize(info.size) .. "\n"
+                else
+                    message = message .. "\n"
+                end
+                message = message .. tostring(file.path) .. "\n\n"
+                message = message .. "New:\n"
+                message = message .. os.date("%Y-%m-%d %H:%M:%S", rename.info.dateModified) .. ", " .. martax.formatSize(rename.info.size) .. "\n"
+                message = message .. tostring(rename.file.path)
+                local button = alert(text, message, "informational", {"Skip", "Abort"}, "Abort", "Skip")
                 if button == "Abort" then
                     return
+                end
+            else
+                local error = rename.file:rename(file.path)
+                if error then
+                    local text = "Can't rename \"" .. rename.file.name .. "\""
+                    local message = error.description .. "\n\n"
+                    message = message .. "Full path: " .. tostring(rename.file.path)
+                    local button = alert(text, message, "warning", {"Skip", "Abort"}, "Abort", "Skip")
+                    if button == "Abort" then
+                        return
+                    end
                 end
             end
         end
