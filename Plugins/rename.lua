@@ -154,7 +154,7 @@ action {
     id = "rename.pattern",
     name = "Rename with Pattern",
     apply = function(context)
-        local button, pattern = dialog("Pattern", "{index:2}-{name}.{extension}", nil, { "Cancel", "Rename" }, "Rename",
+        local button, pattern = dialog("Pattern", "{index:2}-{modified:yyyy-MM-ddTHH:mm:ss}-{name:upper}.{extension:lower}", nil, { "Cancel", "Rename" }, "Rename",
             "Cancel", "Rename with Pattern")
         if button == "Cancel" then
             return
