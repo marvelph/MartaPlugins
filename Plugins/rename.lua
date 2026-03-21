@@ -155,36 +155,37 @@ action {
         for _, info in ipairs(model.activeFileInfos) do
             if info.isFile then
                 local file = info.file
-                local name = buildName(pattern, index, file.nameWithoutExtension, file.extension)
-                table.insert(renames, {info = info, file = file, name = name})
+                local targetName = buildName(pattern, index, file.nameWithoutExtension, file.extension)
+                local targetFile = file.parent:resolve(targetName)
+                table.insert(renames, {info = info, file = file, targetFile = targetFile})
                 index = index + 1
             end
         end
 
         local names = {}
         for _, rename in ipairs(renames) do
-            if names[rename.name] then
+            local targetPath = tostring(rename.targetFile.path):lower()
+            if names[targetPath] then
                 local text = "Rename conflict:\n"
-                text = text .. names[rename.name] .. " → " .. rename.name .. " ← " .. rename.file.name
+                text = text .. names[targetPath] .. " → " .. rename.targetFile.name:lower() .. " ← " .. rename.file.name
                 alert(text, nil, "warning", {"Abort"}, "Abort")
                 return
             end
-            names[rename.name] = rename.file.name
+            names[targetPath] = rename.file.name
         end
 
         for _, rename in ipairs(renames) do
-            local file = rename.file.parent:resolve(rename.name)
-            if rename.file.name:lower() ~= rename.name:lower() and file:exists() then
-                local _, info = file:readInfo({"dateModified", "size"})
+            if rename.file.name:lower() ~= rename.targetFile.name:lower() and rename.targetFile:exists() then
+                local _, targetInfo = rename.targetFile:readInfo({"dateModified", "size"})
                 local text = "File already exists:\n"
-                text = text .. rename.file.name .. " → " .. file.name
+                text = text .. rename.file.name .. " → " .. rename.targetFile.name
                 local message = "Existing:\n"
-                if info then
-                    message = message .. os.date("%Y-%m-%d %H:%M:%S", info.dateModified) .. ", " .. martax.formatSize(info.size) .. "\n"
+                if targetInfo then
+                    message = message .. os.date("%Y-%m-%d %H:%M:%S", targetInfo.dateModified) .. ", " .. martax.formatSize(targetInfo.size) .. "\n"
                 else
                     message = message .. "\n"
                 end
-                message = message .. tostring(file.path) .. "\n\n"
+                message = message .. tostring(rename.targetFile.path) .. "\n\n"
                 message = message .. "New:\n"
                 message = message .. os.date("%Y-%m-%d %H:%M:%S", rename.info.dateModified) .. ", " .. martax.formatSize(rename.info.size) .. "\n"
                 message = message .. tostring(rename.file.path)
@@ -194,8 +195,7 @@ action {
         end
 
         for _, rename in ipairs(renames) do
-            local file = rename.file.parent:resolve(rename.name)
-            local error = rename.file:rename(file.path)
+            local error = rename.file:rename(rename.targetFile.path)
             if error then
                 local text = "Can't rename \"" .. rename.file.name .. "\""
                 local message = error.description .. "\n\n"
