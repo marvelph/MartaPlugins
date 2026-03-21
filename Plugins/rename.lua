@@ -13,7 +13,8 @@ local function escape(text)
     return text
 end
 
-local function dialog(text, defaultAnswer, hiddenAnswer, buttons, defaultButton, cancelButton, withTitle, withIcon, givingUpAfter)
+local function dialog(text, defaultAnswer, hiddenAnswer, buttons, defaultButton, cancelButton, withTitle, withIcon,
+                      givingUpAfter)
     local script = "osascript <<'EOF'\n"
     script = script .. 'display dialog "' .. escape(text) .. '"'
     if defaultAnswer then
@@ -113,7 +114,7 @@ local function alert(text, message, as, buttons, defaultButton, cancelButton, gi
     end
 end
 
-local function buildName(pattern, index, name, extension)
+local function buildName(pattern, index, name, extension, modified)
     return string.gsub(pattern, "{([^}]*)}",
         function(placeholder)
             if placeholder == "index" then
@@ -133,6 +134,15 @@ local function buildName(pattern, index, name, extension)
                 return extension:upper()
             elseif placeholder == "extension:lower" then
                 return extension:lower()
+            elseif placeholder:match("^modified:.+$") then
+                local datetime = placeholder:match("^modified:(.+)$")
+                datetime = datetime:gsub("ss", "%%S")
+                datetime = datetime:gsub("mm", "%%M")
+                datetime = datetime:gsub("HH", "%%H")
+                datetime = datetime:gsub("dd", "%%d")
+                datetime = datetime:gsub("MM", "%%m")
+                datetime = datetime:gsub("yyyy", "%%Y")
+                return os.date(datetime, modified)
             else
                 return "{" .. placeholder .. "}"
             end
@@ -144,7 +154,8 @@ action {
     id = "rename.pattern",
     name = "Rename with Pattern",
     apply = function(context)
-        local button, pattern = dialog("Pattern", "{index:2}-{name}.{extension}", nil, {"Cancel", "Rename"}, "Rename", "Cancel", "Rename with Pattern")
+        local button, pattern = dialog("Pattern", "{index:2}-{name}.{extension}", nil, { "Cancel", "Rename" }, "Rename",
+            "Cancel", "Rename with Pattern")
         if button == "Cancel" then
             return
         end
@@ -155,9 +166,10 @@ action {
         for _, info in ipairs(model.activeFileInfos) do
             if info.isFile then
                 local file = info.file
-                local targetName = buildName(pattern, index, file.nameWithoutExtension, file.extension)
+                local targetName = buildName(pattern, index, file.nameWithoutExtension, file.extension, info
+                .dateModified)
                 local targetFile = file.parent:resolve(targetName)
-                table.insert(renames, {info = info, file = file, targetFile = targetFile})
+                table.insert(renames, { info = info, file = file, targetFile = targetFile })
                 index = index + 1
             end
         end
@@ -168,7 +180,7 @@ action {
             if names[targetPath] then
                 local text = "Rename conflict:\n"
                 text = text .. names[targetPath] .. " → " .. rename.targetFile.name:lower() .. " ← " .. rename.file.name
-                alert(text, nil, "warning", {"Abort"}, "Abort")
+                alert(text, nil, "warning", { "Abort" }, "Abort")
                 return
             end
             names[targetPath] = rename.file.name
@@ -176,20 +188,24 @@ action {
 
         for _, rename in ipairs(renames) do
             if rename.file.name:lower() ~= rename.targetFile.name:lower() and rename.targetFile:exists() then
-                local _, targetInfo = rename.targetFile:readInfo({"dateModified", "size"})
+                local _, targetInfo = rename.targetFile:readInfo({ "dateModified", "size" })
                 local text = "File already exists:\n"
                 text = text .. rename.file.name .. " → " .. rename.targetFile.name
                 local message = "Existing:\n"
                 if targetInfo then
-                    message = message .. os.date("%Y-%m-%d %H:%M:%S", targetInfo.dateModified) .. ", " .. martax.formatSize(targetInfo.size) .. "\n"
+                    message = message ..
+                        os.date("%Y-%m-%d %H:%M:%S", targetInfo.dateModified) ..
+                        ", " .. martax.formatSize(targetInfo.size) .. "\n"
                 else
                     message = message .. "\n"
                 end
                 message = message .. tostring(rename.targetFile.path) .. "\n\n"
                 message = message .. "New:\n"
-                message = message .. os.date("%Y-%m-%d %H:%M:%S", rename.info.dateModified) .. ", " .. martax.formatSize(rename.info.size) .. "\n"
+                message = message ..
+                    os.date("%Y-%m-%d %H:%M:%S", rename.info.dateModified) ..
+                    ", " .. martax.formatSize(rename.info.size) .. "\n"
                 message = message .. tostring(rename.file.path)
-                alert(text, message, "informational", {"Abort"}, "Abort")
+                alert(text, message, "informational", { "Abort" }, "Abort")
                 return
             end
         end
@@ -200,7 +216,7 @@ action {
                 local text = "Can't rename \"" .. rename.file.name .. "\""
                 local message = error.description .. "\n\n"
                 message = message .. "Full path: " .. tostring(rename.file.path)
-                local button = alert(text, message, "warning", {"Skip", "Abort"}, "Abort", "Skip")
+                local button = alert(text, message, "warning", { "Skip", "Abort" }, "Abort", "Skip")
                 if button == "Abort" then
                     return
                 end
