@@ -55,6 +55,7 @@ Renames selected files in bulk using a pattern. The following placeholders are a
 | `{extension}` | Replaced with the original file extension. | `txt` |
 | `{extension:upper}` | Replaced with the original file extension in uppercase. | `TXT` |
 | `{extension:lower}` | Replaced with the original file extension in lowercase. | `txt` |
+| `{modified:FORMAT}` | Replaced with the modified date. The modified date uses the specified format (`yyyy` year, `MM` month, `dd` day, `HH` hour, `mm` minute, `ss` second). | `{modified:yyyyMMdd}` → `20260321` |
 ## selection.lua
 **Plugin ID:** `org.programmershigh.selection`
 ### Select Same Files in Inactive Pane

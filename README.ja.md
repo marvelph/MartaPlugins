@@ -55,6 +55,7 @@
 | `{extension}` | 元の拡張子に置き換えます。 | `txt` |
 | `{extension:upper}` | 元の拡張子を大文字に変換して置き換えます。 | `TXT` |
 | `{extension:lower}` | 元の拡張子を小文字に変換して置き換えます。 | `txt` |
+| `{modified:FORMAT}` | 更新日時に置き換えます。更新日時は指定書式になります（`yyyy` 年、`MM` 月、`dd` 日、`HH` 時、`mm` 分、`ss` 秒）。 | `{modified:yyyyMMdd}` → `20260321` |
 ## selection.lua
 **Plugin ID:** `org.programmershigh.selection`
 ### Select Same Files in Inactive Pane
