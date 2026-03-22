@@ -154,7 +154,9 @@ action {
     id = "rename.pattern",
     name = "Rename with Pattern",
     apply = function(context)
-        local button, pattern = dialog("Pattern", "{index:2}-{modified:yyyy-MM-ddTHH:mm:ss}-{name:upper}.{extension:lower}", nil, { "Cancel", "Rename" }, "Rename",
+        local button, pattern = dialog("Pattern",
+            "{index:2}-{modified:yyyy-MM-ddTHH:mm:ss}-{name:upper}.{extension:lower}", nil, { "Cancel", "Rename" },
+            "Rename",
             "Cancel", "Rename with Pattern")
         if button == "Cancel" then
             return
@@ -167,7 +169,7 @@ action {
             if info.isFile then
                 local file = info.file
                 local targetName = buildName(pattern, index, file.nameWithoutExtension, file.extension, info
-                .dateModified)
+                    .dateModified)
                 local targetFile = file.parent:resolve(targetName)
                 table.insert(renames, { info = info, file = file, targetFile = targetFile })
                 index = index + 1
@@ -210,6 +212,7 @@ action {
             end
         end
 
+        local count = 0
         for _, rename in ipairs(renames) do
             local error = rename.file:rename(rename.targetFile.path)
             if error then
@@ -220,7 +223,19 @@ action {
                 if button == "Abort" then
                     return
                 end
+            else
+                count = count + 1
             end
         end
+
+        local text
+        if count == 0 then
+            text = "No files renamed"
+        elseif count == 1 then
+            text = "1 file renamed"
+        else
+            text = string.format("%d files renamed", count)
+        end
+        context.activePane.view:showNotification(text)
     end
 }
