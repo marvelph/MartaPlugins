@@ -1,6 +1,6 @@
 environment {
     terminal "Ghostty"
-    textEditor "CotEditor"
+    textEditor "Zed"
 }
 
 behavior {
@@ -115,8 +115,8 @@ keyBindings {
     "Shift+Escape" "core.refresh"
     "G" "core.select.group"
     "Shift+G" "core.deselect.group"
-    "W" "org.programmershigh.selection.select.same.file"
-    "Shift+W" "org.programmershigh.selection.select.different.file"
+    "Shift+W" "org.programmershigh.selection.select.same.file"
+    "W" "org.programmershigh.selection.select.different.file"
     
     "X" "core.context.menu"
     "Shift+Return" "core.open.with"
